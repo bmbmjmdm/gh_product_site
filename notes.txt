@@ -1,0 +1,52 @@
+- Broke out several components for potential re-usability and cleaner code
+-- the screen overlay should be abstracted out from loading manager and cart overlay
+
+- elegant mobile resizing
+
+- leveraged tailwind as much as possible, though this leaves a lot of room for cleaning up that I didnt have time for
+
+- Leveraging Next routing with hashtags to navigate, alongside a navigation header/content container
+-- this type of navigation obviously works better if the pages can be individually loaded (categories being pre-determined). using the hash is a hack since we are loading the pages dynamically. in retrospect it makes more sense for this to be a single page with filter options, but that also makes the website look kinda empty. it works fine for now, but for future proofing these categories would be consolidated into a single page with filters and the other nav options (about, home, help, etc) would be seperate pages.
+-- one big issue i see is that changing pages reloads everything (nav, redux, etc). I'm accustomed to using react-router and such, so I didnt have time to learn how to fix this with nextJS's version of navigation 
+
+- Redux to handle state (data from API and current cart)
+-- local storage *would* be used to keep track of current cart ID so it can be fetched from BE when page reloads, as well as using the BE to update cart info and keep in-sync with FE intelligently, but since I had to move away from server-side storage I now use local storage to store the whole cart. 
+--- kept some of the functions around as proof of concepts, but theyre missing some things like error handling, some logic living outside the redux store, and general testing/cleanup
+
+- no cart page due to time constraint, everything can be done from cart menu
+
+- api calls are fairly dumb
+-- no showing error messages for loading products/categories currently, but we reload them automatically
+--- infinitely reloads failed loading. in reality we would want to cap this and then show an error message
+
+- cannot handle more than 8 categories, would need to wrap nav buttons or rethink nav bar
+
+- for product descriptions I made them abreviated and then expandable, rather than bringing the user to a product page when they click on one. product pages would be better but this was a time trade off
+
+- automated tests were cut in favor of features. this is a pretty common "move fast and break things" approach since I had such a small amount of time to build this, but I would have loved to get tests in there to ensure future stability 
+
+- didnt know how to only get a subsection of products from API, so forced to do the costly full fetch.
+-- cut out pagination from product page due to time and not being able stagger the loading anyway (though at least that would stagger the image loading)
+
+- navbar follows scroll so user can always see the cart
+
+- obviously more animations and styling were cut for time
+
+- made shopping carts grey (until moused over) because while the blue was a good call-to-action, it was overwhelming with them all over the page
+- made price clickable for some extra hit slop / pointer accuracy ease
+- made cart center with description when expanded for emphasis
+
+- images for products could be better sized/centered
+
+- doesnt show on product card the current cart quantity. cannot update it (or remove it) from product card
+
+- success/failure images should be svgs
+
+- make cart overlay background clickable to close cart
+
+- success screen has awkward second of loading where it changes the icon to success
+
+- z indexes should be normalized
+
+- obviously the checout process was extremely simplified for time
+- success page should show more details such as purchase
